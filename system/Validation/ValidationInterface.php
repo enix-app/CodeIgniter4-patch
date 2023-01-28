@@ -40,6 +40,14 @@ interface ValidationInterface
     public function check($value, string $rule, array $errors = []): bool;
 
     /**
+     *  Validates with spesific key(s) from array rules.
+     * 
+     *  @param $rules array             required
+     *  @param $keys  null|string|array optional with ("|") delimiter value as string.
+     */
+    public function withRules(array $rules, null|string|array $keys = []);
+
+    /**
      * Takes a Request object and grabs the input data to use from its
      * array values.
      */

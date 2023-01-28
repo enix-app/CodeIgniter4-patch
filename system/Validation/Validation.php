@@ -386,6 +386,33 @@ class Validation implements ValidationInterface
     }
 
     /**
+     *  Validates with spesific key(s) from array rules.
+     * 
+     *  @param rules array required
+     */
+    public function withRules(array $rules, null|string|array $keys = [])
+    {
+        $this->rules = $rules;
+
+        // Skip this if $keys is empty.
+        if(empty($keys)) return $rules;
+
+        // Splits $keys string to array.
+        if(is_string($keys)) {
+            $keys = explode("|", trim($keys));
+        }
+
+        // Eliminate unused key.
+        foreach($this->rules as $key => $value) {
+            if(! in_array($key, $keys)) {
+                unset($this->rules[$key]);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
      * Takes a Request object and grabs the input data to use from its
      * array values.
      */
